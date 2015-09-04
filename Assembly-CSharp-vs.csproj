@@ -47,16 +47,28 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Animal.cs" />
+     <Compile Include="Assets\AnimalManager.cs" />
      <Compile Include="Assets\BoardManager.cs" />
      <Compile Include="Assets\Buffer.cs" />
      <Compile Include="Assets\Central.cs" />
      <Compile Include="Assets\Click_Sensor.cs" />
      <Compile Include="Assets\CoinMaker.cs" />
+     <Compile Include="Assets\Drag.cs" />
      <Compile Include="Assets\Editable.cs" />
+     <Compile Include="Assets\EditableParent.cs" />
      <Compile Include="Assets\Item.cs" />
      <Compile Include="Assets\NewButton.cs" />
+     <Compile Include="Assets\SaleItem.cs" />
      <Compile Include="Assets\Sensor.cs" />
+     <Compile Include="Assets\TooltipSystem\Scripts\GUIController.cs" />
+     <Compile Include="Assets\TooltipSystem\Scripts\Icon.cs" />
+     <Compile Include="Assets\TooltipSystem\Scripts\ObjectHandler.cs" />
+     <Compile Include="Assets\TooltipSystem\Scripts\ToolTipHandler.cs" />
      <Compile Include="Assets\Under.cs" />
+     <None Include="Assets\TooltipSystem\Resources\ObjectDetails\item_info.txt" />
+     <None Include="Assets\TooltipSystem\readme.txt" />
+     <None Include="Assets\TooltipSystem\Resources\ObjectDetails\skill_info.txt" />
+     <None Include="Assets\TooltipSystem\Resources\ObjectDetails\object_info.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

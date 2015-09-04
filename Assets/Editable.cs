@@ -2,16 +2,14 @@
 using System.Collections;
 
 public class Editable : MonoBehaviour {
-    private GameObject central;
-    private Central central_scr;
+ 
     private bool editable;
     private Vector3 offset;
     private Vector3 screenPoint;
+    private GameObject owner;
 	// Use this for initialization
 	void Start () {
-        central = GameObject.Find("Central");
-        central_scr = central.GetComponent<Central>();
-        central_scr.editableList.Add(gameObject);
+        transform.parent = GameObject.Find("EditableParent").transform;
 	}
 	
 	// Update is called once per frame
@@ -41,7 +39,11 @@ public class Editable : MonoBehaviour {
     void OnMouseUp()
     {
         transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), -1);
-        
+        if(transform.position.x <0 || transform.position.x > 10 || transform.position.y < 0 || transform.position.y > 10)
+        {
+            owner.GetComponent<SaleItem>().own++;
+            Destroy(gameObject);
+        }
     }
     public void SetEditable()
     {
@@ -53,4 +55,10 @@ public class Editable : MonoBehaviour {
     {
         editable = false;
     }
+
+    public void SetOwner(GameObject own)
+    {
+        owner = own;
+    }
+    
 }

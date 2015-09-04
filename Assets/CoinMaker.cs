@@ -24,8 +24,9 @@ public class CoinMaker : MonoBehaviour {
         foreach (Transform child in transform)
         {
             GameObject.Destroy(child.gameObject);
-            CancelInvoke("MakeItRain");
+           
         }
+        CancelInvoke("MakeItRain");
     }
 
 	// Update is called once per frame

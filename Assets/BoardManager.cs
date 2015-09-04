@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class BoardManager : MonoBehaviour {
     private List<Vector3> gridPositions = new List<Vector3>();	//A list of possible locations to place tiles.
@@ -19,10 +20,13 @@ public class BoardManager : MonoBehaviour {
     public int inside;
     private bool ready, start;
     public int money, dog, chicken, cow, pig, horse, cat, goat, sheep;
+    private Text time_txt;
     public GameObject central;
     public GameObject gate;
     public Central central_scr;
     public List<int> order = new List<int>();
+    public int time;
+    public GameObject animalManager;
 
 	void Awake () {
 
@@ -30,7 +34,7 @@ public class BoardManager : MonoBehaviour {
         // InitialiseList();
 
 //        Time.timeScale = 0;
-
+        animalManager = GameObject.Find("AnimalManager");
         
     
 	}
@@ -39,7 +43,10 @@ public class BoardManager : MonoBehaviour {
     {
         central = GameObject.Find("Central");
         central_scr = central.GetComponent<Central>();
+        GameObject tim = GameObject.Find("Time");
+        time_txt = tim.GetComponent<Text>();
         //Push();
+       
 
     }
     
@@ -82,6 +89,10 @@ public class BoardManager : MonoBehaviour {
         rd = Random.Range(0, order.Count);
         ani3 = Instantiate(animal[order[rd]], new Vector3(5, -3, -2), Quaternion.identity) as GameObject;
         order.Remove(order[rd]);
+        Debug.Log(animalManager.transform);
+        ani1.transform.parent = animalManager.transform;
+        ani2.transform.parent = animalManager.transform;
+        ani3.transform.parent = animalManager.transform;
 
     }
 
@@ -111,6 +122,7 @@ public class BoardManager : MonoBehaviour {
             int rd = Random.Range(0, order.Count);
             ani3 = Instantiate(animal[order[rd]], new Vector3(5, -3, -2), Quaternion.identity) as GameObject;
             order.Remove(order[rd]);
+            ani3.transform.parent = animalManager.transform;
         }
         else
         {
@@ -147,6 +159,12 @@ public class BoardManager : MonoBehaviour {
 
     }
 
+    public void CountDown()
+    {
+        time--;
+        Invoke("CountDown", 1);
+    }
+
 	// Update is called once per frame
 	void Update () {
         if (start == false)
@@ -157,6 +175,7 @@ public class BoardManager : MonoBehaviour {
                 Push();
                 Time.timeScale = 1;
                 GameObject.Find("CoinMaker").SendMessage("MakeItRain");
+                Invoke("CountDown", 1);
             }
         }
 	    else if(inside < max_inside)
@@ -165,6 +184,11 @@ public class BoardManager : MonoBehaviour {
             {
                 Push();
             }
+        }
+        time_txt.text = " " + time;
+        if(time == 0)
+        {
+            EndDay();
         }
 	}
 
@@ -234,9 +258,12 @@ public class BoardManager : MonoBehaviour {
 
     public void EndDay()
     {
+        time = 10;
         central_scr.money = money;
         GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(-20, -20, -10);
         GameObject.Find("CoinMaker").SendMessage("DryIt");
+        CancelInvoke("CountDown");
+        animalManager.SendMessage("Butcher");
     }
 
    
