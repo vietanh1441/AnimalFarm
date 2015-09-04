@@ -60,10 +60,12 @@
      <Compile Include="Assets\NewButton.cs" />
      <Compile Include="Assets\SaleItem.cs" />
      <Compile Include="Assets\Sensor.cs" />
+     <Compile Include="Assets\Tooltip.cs" />
      <Compile Include="Assets\TooltipSystem\Scripts\GUIController.cs" />
      <Compile Include="Assets\TooltipSystem\Scripts\Icon.cs" />
      <Compile Include="Assets\TooltipSystem\Scripts\ObjectHandler.cs" />
      <Compile Include="Assets\TooltipSystem\Scripts\ToolTipHandler.cs" />
+     <Compile Include="Assets\Tree.cs" />
      <Compile Include="Assets\Under.cs" />
      <None Include="Assets\TooltipSystem\Resources\ObjectDetails\item_info.txt" />
      <None Include="Assets\TooltipSystem\readme.txt" />

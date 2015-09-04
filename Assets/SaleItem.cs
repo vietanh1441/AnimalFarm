@@ -12,6 +12,15 @@ public class SaleItem : MonoBehaviour {
     private GameObject central;
     private Central central_scr;
     public int own;
+
+    public string toolTipText = ""; // set this in the Inspector
+
+    private string currentToolTipText = "";
+    private GUIStyle guiStyleFore;
+    private GUIStyle guiStyleBack;
+    private static Texture2D _staticRectTexture;
+    private static GUIStyle _staticRectStyle;
+
 	// Use this for initialization
 	void Start () {
         own = 0;
@@ -20,12 +29,69 @@ public class SaleItem : MonoBehaviour {
         drag_script.AddList(gameObject);
         central = GameObject.Find("Central");
         central_scr = central.GetComponent<Central>();
+
+        guiStyleFore = new GUIStyle();
+        guiStyleFore.normal.textColor = Color.white;
+        guiStyleFore.alignment = TextAnchor.UpperCenter;
+        guiStyleFore.wordWrap = true;
+        guiStyleBack = new GUIStyle();
+        guiStyleBack.normal.textColor = Color.black;
+        guiStyleBack.alignment = TextAnchor.UpperCenter;
+        guiStyleBack.wordWrap = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+
+    public void OnMouseEnter()
+    {
+        toolTipText = " In Storage: " + own + "\n Hello World";
+         currentToolTipText = toolTipText;
+
+
+    }
+
+    public void OnMouseExit()
+    {
+        currentToolTipText = "";
+    }
+
+    public void OnGUI()
+    {
+        if (currentToolTipText != "")
+        {
+            var x = Event.current.mousePosition.x;
+            var y = Event.current.mousePosition.y-100;
+            GUI.Label(new Rect(x - 149, y + 21, 300, 60), currentToolTipText, guiStyleBack);
+            GUI.Label(new Rect(x - 150, y + 20, 300, 60), currentToolTipText, guiStyleFore);
+            GUIDrawRect(new Rect(x - 149, y + 21, 300, 60), new Color(0.5f, 0.5f, 0.5f, 0.5f));
+        }
+    }
+
+    public static void GUIDrawRect(Rect position, Color color)
+    {
+        if (_staticRectTexture == null)
+        {
+            _staticRectTexture = new Texture2D(1, 1);
+        }
+
+        if (_staticRectStyle == null)
+        {
+            _staticRectStyle = new GUIStyle();
+        }
+
+        _staticRectTexture.SetPixel(0, 0, color);
+        _staticRectTexture.Apply();
+
+        _staticRectStyle.normal.background = _staticRectTexture;
+
+        GUI.Box(position, GUIContent.none, _staticRectStyle);
+
+
+    }
 
     public void Readjust()
     {

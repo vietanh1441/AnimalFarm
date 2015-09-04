@@ -27,7 +27,7 @@ public class BoardManager : MonoBehaviour {
     public List<int> order = new List<int>();
     public int time;
     public GameObject animalManager;
-
+    public List<GameObject> CountDownList = new List<GameObject>();
 	void Awake () {
 
         
@@ -176,6 +176,10 @@ public class BoardManager : MonoBehaviour {
                 Time.timeScale = 1;
                 GameObject.Find("CoinMaker").SendMessage("MakeItRain");
                 Invoke("CountDown", 1);
+                foreach(GameObject child in CountDownList)
+                {
+                    child.SendMessage("StartCountDown");
+                }
             }
         }
 	    else if(inside < max_inside)
@@ -264,6 +268,10 @@ public class BoardManager : MonoBehaviour {
         GameObject.Find("CoinMaker").SendMessage("DryIt");
         CancelInvoke("CountDown");
         animalManager.SendMessage("Butcher");
+        foreach (GameObject child in CountDownList)
+        {
+            child.SendMessage("StopCountDown");
+        }
     }
 
    

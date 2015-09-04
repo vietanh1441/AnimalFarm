@@ -81,17 +81,7 @@ public class Central : MonoBehaviour {
     public void NewGame()
     {
         Debug.Log("Whatabt here?");
-        money = 5;
-        dog = 5;
-        chicken = 0;
-        cow = 0;
-        pig = 0;
-        horse = 0;
-        cat = 0;
-        goat = 0;
-        sheep = 0;
-        day = 1;
-        time = 5;
+       
         Sync();
         bM_script.SettingUp();
     }

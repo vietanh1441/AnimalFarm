@@ -52,7 +52,7 @@ public class GUIController : MonoBehaviour {
 
     void OnGUI()
     {
-        Ray ray = camera.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+        Ray ray = GetComponent<Camera>().ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 
         foreach (Icon icon in icons)
         {
@@ -94,7 +94,7 @@ public class GUIController : MonoBehaviour {
                     if (!Generated)
                     {
                         if (!TooltipMouseFollow)
-                            tooltip_handler.CreateNewTooltip(new Rect(camera.WorldToScreenPoint(icon.getTargetData().transform.position + (icon.getTargetData().transform.localScale / 2)).x, Screen.height - camera.WorldToScreenPoint(icon.getTargetData().transform.position).y, icon.getIconDimensions().width, icon.getIconDimensions().height), icon.getIconType(), icon.ToString());
+                            tooltip_handler.CreateNewTooltip(new Rect(GetComponent<Camera>().WorldToScreenPoint(icon.getTargetData().transform.position + (icon.getTargetData().transform.localScale / 2)).x, Screen.height - GetComponent<Camera>().WorldToScreenPoint(icon.getTargetData().transform.position).y, icon.getIconDimensions().width, icon.getIconDimensions().height), icon.getIconType(), icon.ToString());
                         else
                             tooltip_handler.CreateNewTooltip(new Rect(Input.mousePosition.x, Screen.height - Input.mousePosition.y, icon.getIconDimensions().width, icon.getIconDimensions().height), icon.getIconType(), icon.ToString());
 
