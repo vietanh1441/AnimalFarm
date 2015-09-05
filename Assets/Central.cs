@@ -96,20 +96,20 @@ public class Central : MonoBehaviour {
     public void Unedit()
     {
         GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(-20, -20, -10);
-        GameObject.Find("BuyAnimal").transform.position = new Vector3(-4, 6, 10);
-        GameObject.Find("BuyTree").transform.position = new Vector3(-4, 4, 10);
-        GameObject.Find("BuyFarmTool").transform.position = new Vector3(-4, 2, 10);
-        editableParent.SendMessage("SetEditable");
-        GameObject.Find("Unedit").transform.position = new Vector3(-40, -40, 20);
+        GameObject.Find("BuyAnimal").transform.position = new Vector3(-40, 6, -20);
+        GameObject.Find("BuyTree").transform.position = new Vector3(-40, 4, -20);
+        GameObject.Find("BuyFarmTool").transform.position = new Vector3(-40, 2, -20);
+        editableParent.SendMessage("UnsetEditable");
+        GameObject.Find("Unedit").transform.position = new Vector3(-40, -40, -20);
     }
 
     public void Buy()
     {
         GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(2, 2, -10);
         //get other object to the surface
-        GameObject.Find("BuyAnimal").transform.position = new Vector3(-4,6,-2);
-        GameObject.Find("BuyTree").transform.position = new Vector3(-4, 4, -2);
-        GameObject.Find("BuyFarmTool").transform.position = new Vector3(-4, 2, -2);
+        GameObject.Find("BuyAnimal").transform.position = new Vector3(0,-2,-2);
+        GameObject.Find("BuyTree").transform.position = new Vector3(2, -2, -2);
+        GameObject.Find("BuyFarmTool").transform.position = new Vector3(4, -2, -2);
         editableParent.SendMessage("UnsetEditable");
         GameObject.Find("Unedit").transform.position = new Vector3(-4, 0, -2);
     }

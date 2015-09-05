@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Editable : MonoBehaviour {
  
-    private bool editable;
+    public bool editable;
     private Vector3 offset;
     private Vector3 screenPoint;
     private GameObject owner;

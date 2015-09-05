@@ -8,9 +8,15 @@ public class Under : MonoBehaviour {
     public int type;    //finish, up, down, right, left, egg
     public Sprite[] sprite;
     public int value;
+    public bool full;
+    public GameObject bM;
+    public BoardManager bM_script;
 	// Use this for initialization
 	void Start () {
         ChangeSprite();
+        full = false;
+        bM = GameObject.Find("BoardManager");
+        bM_script = bM.GetComponent<BoardManager>();
 	}
 	
     public void ChangeSprite()
@@ -65,5 +71,16 @@ public class Under : MonoBehaviour {
     {
        
     }
+
+    public void SetFull()
+    {
+        full = true ;
+    }
+
+    public void UnsetFull()
+    {
+        full = false;
+    }
+
 
 }

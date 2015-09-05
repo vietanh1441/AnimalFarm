@@ -14,6 +14,7 @@ public class SaleItem : MonoBehaviour {
     public int own;
 
     public string toolTipText = ""; // set this in the Inspector
+    public string name = "";
 
     private string currentToolTipText = "";
     private GUIStyle guiStyleFore;
@@ -38,6 +39,7 @@ public class SaleItem : MonoBehaviour {
         guiStyleBack.normal.textColor = Color.black;
         guiStyleBack.alignment = TextAnchor.UpperCenter;
         guiStyleBack.wordWrap = true;
+       // toolTipText = name + "\n In Storage: " + own + "\n " + toolTipText;
 	}
 	
 	// Update is called once per frame
@@ -48,8 +50,8 @@ public class SaleItem : MonoBehaviour {
 
     public void OnMouseEnter()
     {
-        toolTipText = " In Storage: " + own + "\n Hello World";
-         currentToolTipText = toolTipText;
+
+        currentToolTipText = name + "\n In Storage: " + own + "\n Price:" + price + " \n" + toolTipText;
 
 
     }
@@ -65,9 +67,8 @@ public class SaleItem : MonoBehaviour {
         {
             var x = Event.current.mousePosition.x;
             var y = Event.current.mousePosition.y-100;
-            GUI.Label(new Rect(x - 149, y + 21, 300, 60), currentToolTipText, guiStyleBack);
+            GUIDrawRect(new Rect(x - 149, y + 21, 300, 60), new Color(0.1f, 0.1f, 0.1f, 0.8f));
             GUI.Label(new Rect(x - 150, y + 20, 300, 60), currentToolTipText, guiStyleFore);
-            GUIDrawRect(new Rect(x - 149, y + 21, 300, 60), new Color(0.5f, 0.5f, 0.5f, 0.5f));
         }
     }
 
@@ -97,7 +98,7 @@ public class SaleItem : MonoBehaviour {
     {
         if (transform.parent != null)
         {
-            transform.localPosition = new Vector3(0, 0 - 0.03f * drag_script.theList.IndexOf(gameObject), -1);
+            transform.localPosition = new Vector3(0 + 0.05f * drag_script.theList.IndexOf(gameObject), 0,-1);
         }
     }
 

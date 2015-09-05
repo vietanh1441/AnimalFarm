@@ -28,6 +28,9 @@ public class BoardManager : MonoBehaviour {
     public int time;
     public GameObject animalManager;
     public List<GameObject> CountDownList = new List<GameObject>();
+    public List<GameObject> ArrowList = new List<GameObject>();
+    public List<GameObject> CleanUpList = new List<GameObject>();
+    private bool start_day = false;
 	void Awake () {
 
         
@@ -35,9 +38,11 @@ public class BoardManager : MonoBehaviour {
 
 //        Time.timeScale = 0;
         animalManager = GameObject.Find("AnimalManager");
-        
+        start_day = false;
     
 	}
+
+   
 
     void Start()
     {
@@ -45,11 +50,17 @@ public class BoardManager : MonoBehaviour {
         central_scr = central.GetComponent<Central>();
         GameObject tim = GameObject.Find("Time");
         time_txt = tim.GetComponent<Text>();
+        
         //Push();
        
 
     }
-    
+
+    public void StartDay()
+    {
+        start_day = true;
+    }
+
     public void SettingUp()
     {
         
@@ -61,8 +72,13 @@ public class BoardManager : MonoBehaviour {
 
     public void NewDay()
     {
+        foreach (GameObject child in ArrowList)
+        {
+            child.SendMessage("Readjust");
+        }
         start = false;
         ready = false;
+        start_day = false;
         Destroy(gate);
         inside = 0;
         InitializeGame();
@@ -169,17 +185,17 @@ public class BoardManager : MonoBehaviour {
 	void Update () {
         if (start == false)
         {
-            if (Input.anyKey)
+            if (start_day)
             {
                 start = true;
                 Push();
                 Time.timeScale = 1;
-                GameObject.Find("CoinMaker").SendMessage("MakeItRain");
                 Invoke("CountDown", 1);
                 foreach(GameObject child in CountDownList)
                 {
                     child.SendMessage("StartCountDown");
                 }
+               
             }
         }
 	    else if(inside < max_inside)
@@ -263,14 +279,21 @@ public class BoardManager : MonoBehaviour {
     public void EndDay()
     {
         time = 10;
-        central_scr.money = money;
         GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(-20, -20, -10);
-        GameObject.Find("CoinMaker").SendMessage("DryIt");
+        
         CancelInvoke("CountDown");
         animalManager.SendMessage("Butcher");
         foreach (GameObject child in CountDownList)
         {
             child.SendMessage("StopCountDown");
+        }
+        foreach (GameObject child in ArrowList)
+        {
+            child.SendMessage("Readjust");
+        }
+        foreach (GameObject child in CleanUpList)
+        {
+            child.SendMessage("CleanUp");
         }
     }
 

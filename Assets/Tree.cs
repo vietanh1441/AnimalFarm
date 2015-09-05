@@ -13,6 +13,7 @@ public class Tree : MonoBehaviour {
         bM_script = bM.GetComponent<BoardManager>();
         bM_script.CountDownList.Add(gameObject);
         countdown = ripe_time;
+        bM_script.CleanUpList.Add(gameObject);
 	}
 	
 	// Update is called once per frame
@@ -74,5 +75,13 @@ public class Tree : MonoBehaviour {
     public void OnDestroy()
     {
         bM_script.CountDownList.Remove(gameObject);
+    }
+
+    public void CleanUp()
+    {
+        foreach (Transform child in transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
     }
 }

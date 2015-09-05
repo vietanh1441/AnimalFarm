@@ -26,7 +26,7 @@ public class EditableParent : MonoBehaviour {
     {
         foreach (Transform child in transform)
         {
-            child.SendMessage("SetEditable");
+            child.SendMessage("UnsetEditable");
 
         }
     }

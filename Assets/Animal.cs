@@ -153,21 +153,42 @@ public class Animal : MonoBehaviour {
     {
         if(other.tag == "Under")
         {
-
-            int type = other.gameObject.GetComponent<Under>().type;
-            if(type == 0)
+            Under other_script = other.gameObject.GetComponent<Under>();
+            int other_type = other_script.type;
+            if(other_type == 0)
             {
                     HappyFinishing();
                 
             }
-            else if(type > 100)
+            else if(other_type == 11)
+            {
+                if(type == 11)
+                {
+                    //Lay egg
+                    if(store!= null && other_script.full == false)
+                    {
+                       GameObject instance = Instantiate(store,new Vector3(Mathf.Round(other.transform.position.x), Mathf.Round(other.transform.position.y),-2), Quaternion.identity) as GameObject;
+                        store = null;
+                        instance.transform.parent = GameObject.Find("CoinMaker").transform;
+                        other_script.full = true;
+                    }
+                }
+                else if (type == 10)
+                {
+                    if(store == null && other_script.full == true)
+                    {
+                        other_script.full = false;
+                    }
+                }
+            }
+            else if(other_type > 100)
             {
                 //do nothing;
             }
             else 
             {
                 transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y),-2);
-                direction = type-1;
+                direction = other_type-1;
             }
         }
         else if(other.tag == "Item")

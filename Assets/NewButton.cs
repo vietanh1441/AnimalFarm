@@ -9,7 +9,7 @@ public class NewButton : MonoBehaviour
     private Central central_scr;
     public int value;
     private bool on;
-   
+    public GameObject drag;
 
     // Use this for initialization
     void Start()
@@ -48,50 +48,32 @@ public class NewButton : MonoBehaviour
     public void Unedit()
     {
         central_scr.Unedit();
+        GameObject.Find("AnimalDrag").transform.position = new Vector3(100, 6, -10);
+        GameObject.Find("TreeDrag").transform.position = new Vector3(100, 4, -10);
+        GameObject.Find("ToolDrag").transform.position = new Vector3(100, 2, -10);
     }
 
-    public void BuyAnimal()
+    public void BuySomething()
     {
-        if(!on)
+        GameObject.Find("AnimalDrag").transform.position = new Vector3(100, -2, -10);
+        GameObject.Find("TreeDrag").transform.position = new Vector3(100, -2, -10);
+        GameObject.Find("ToolDrag").transform.position = new Vector3(100, -2, -10);
+        GameObject.Find("BuyAnimal").transform.position = new Vector3(-6, -2, -2);
+        GameObject.Find("BuyTree").transform.position = new Vector3(-5, -2, -2);
+        GameObject.Find("BuyFarmTool").transform.position = new Vector3(-4, -2, -2);
+        if(drag.transform.position.x == 100)
         { 
-            GameObject.Find("AnimalDrag").transform.position = new Vector3(0, 6, -1);
+            drag.transform.position = new Vector3(0, drag.transform.position.y, -1);
             on = true;
         }
         else
         {
-            GameObject.Find("AnimalDrag").transform.position = new Vector3(100, 6, -10);
+            drag.transform.position = new Vector3(100, drag.transform.position.y, -10);
             on = false;
         }
     }
 
-    public void BuyTree()
-    {
-        if (!on)
-        {
-            GameObject.Find("TreeDrag").transform.position = new Vector3(0, 4, -1);
-            on = true;
-        }
-        else
-        {
-            GameObject.Find("TreeDrag").transform.position = new Vector3(100, 4, -10);
-            on = false;
-        }
-    }
-
-    public void BuyTool()
-    {
-        if (!on)
-        {
-            GameObject.Find("ToolDrag").transform.position = new Vector3(0, 2, -1);
-            on = true;
-        }
-        else
-        {
-            GameObject.Find("ToolDrag").transform.position = new Vector3(100, 2, -10);
-            on = false;
-        }
-    }
-
+    
 
 
     public void Buy()
@@ -105,5 +87,10 @@ public class NewButton : MonoBehaviour
         {
             transform.parent.gameObject.SendMessage("Buy");
         }
+    }
+
+    public void StartDay()
+    {
+        GameObject.Find("BoardManager").SendMessage("StartDay");
     }
 }
